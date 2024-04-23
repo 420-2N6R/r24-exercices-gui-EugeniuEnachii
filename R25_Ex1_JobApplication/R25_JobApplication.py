@@ -184,7 +184,8 @@ class App(ctk.CTk):
 
         # Résumé de l'application
         self.btn_resumer = ctk.CTkButton(master=frm_container,
-                                        text="Résumé de l'application")
+                                        text="Résumé de l'application",
+                                        command=self.resumer)
         self.btn_resumer.grid(row=3, column=0,
                                         columnspan=2, padx=20,
                                         pady=2, sticky="ew")
@@ -200,12 +201,26 @@ class App(ctk.CTk):
 
     # Voir ÉNONCÉ
     def resumer(self):
-        pass
+        self.txt_resume.delete(1.0, 'end') 
+        App.creer_resume(self)
+        
+
 
     # Voir ÉNONCÉ
 
     def creer_resume(self):
-        pass
+        
+        liste_attributs = []
+        for each in self.list_checkbox:
+            item = each.get()
+            liste_attributs.append(item)
+
+        somme_attributs = sum(liste_attributs)
+        nom_donne = self.ent_nom.get() 
+        interet_donne = self.cbo_interet.get()
+        print(f"Nom : {nom_donne}. Champ d'intéret : {interet_donne}")
+        self.txt_resume.insert( "0.0", f"Salut {nom_donne}\nMerci de votre application chez nous\nVous avez de l'éxpérience dans {somme_attributs} sur {len(self.list_checkbox)}\nL'intérêt principal mentionné étant: {interet_donne}\nNous vous donnerons une réponse sous peu" )
+        
 
 if __name__ == "__main__":
     app = App()
