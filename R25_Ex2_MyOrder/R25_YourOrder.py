@@ -2,22 +2,44 @@ import customtkinter as ctk
 import tkinter as tk
 from tkinter import ttk
 
-import os
+import os 
 from PIL import ImageTk, Image   
 
 
 window = tk.Tk()
+global ta_commande
 ta_commande = "Ta commande: \n"
 choix_smarin =  tk.StringVar(value="steak")
 size_smarin =  tk.StringVar(value="10")
 choix_pizza =  tk.StringVar(value="nature")
 size_pizza =  tk.StringVar(value="7")
 
+global prix_total
 prix_total = 0
 
 #  VOIR ÉNONCÉ
 def ajouter_smarin():
-    pass
+    prix = 0
+    choix_sous_marin = chk_smarin.get()
+    taille_sous_marin = size_smarin.get()
+    sorte_sous_marin = choix_smarin.get()
+
+
+    if choix_sous_marin == "1": 
+        if taille_sous_marin == "10":
+            if sorte_sous_marin == "steak":
+                displayBox.insert("0.0" , "\ntest")
+            elif sorte_sous_marin == "pepperoni":
+                pass
+            elif sorte_sous_marin == "duchef":
+                pass
+        else:
+            if sorte_sous_marin == "steak":
+                pass
+            elif sorte_sous_marin == "pepperoni":
+                pass
+            elif sorte_sous_marin == "duchef":
+                pass
 
 #  VOIR ÉNONCÉ               
 def ajouter_pizza():
@@ -25,7 +47,12 @@ def ajouter_pizza():
 
 #  VOIR ÉNONCÉ               
 def ajouter():
-    pass
+    displayBox.delete(1.0, 'end')
+    ajouter_smarin()
+    ajouter_pizza()
+    displayBox.insert( "0.0" , "Ta commande : ")
+    displayBox.insert( "0.0" , f"Pour un total de : {prix_total}$")
+     
 
     
 window.rowconfigure((0,1,2,3), weight=1, minsize=150)
@@ -84,7 +111,7 @@ smarin14po = ttk.Radiobutton(frm_smarin_choix, text='14"', variable=size_smarin,
 smarin10po.grid(row=5, column=0,padx=2,pady=2,sticky="w")
 smarin14po.grid(row=6, column=0,padx=2,sticky="w")
 
-btn_voir_ajout_smarin = ttk.Button(frm_sousmarin, text="Ajouter")
+btn_voir_ajout_smarin = ttk.Button(frm_sousmarin, text="Ajouter" , command=ajouter)
 btn_voir_ajout_smarin.grid(column=2, row=3, sticky='w') 
 
 
@@ -133,7 +160,7 @@ pizza14po = ttk.Radiobutton(frm_pizza_choix, text='14"', variable=size_pizza, va
 pizza7po.grid(row=5, column=0,padx=2,pady=2,sticky="w")
 pizza14po.grid(row=6, column=0,padx=2,sticky="w")
 
-btn_voir_ajout_pizza = ttk.Button(frm_pizza, text="Ajouter")
+btn_voir_ajout_pizza = ttk.Button(frm_pizza, text="Ajouter" ,command=ajouter)
 btn_voir_ajout_pizza.grid(column=2, row=3, sticky='w') 
 
 
