@@ -4,11 +4,7 @@ from tkinter import ttk
 
 import os 
 from PIL import ImageTk, Image   
-
-
 window = tk.Tk()
-global ta_commande
-ta_commande = "Ta commande: \n"
 choix_smarin =  tk.StringVar(value="steak")
 size_smarin =  tk.StringVar(value="10")
 choix_pizza =  tk.StringVar(value="nature")
@@ -17,42 +13,81 @@ size_pizza =  tk.StringVar(value="7")
 global prix_total
 prix_total = 0
 
+global ta_commande
+ta_commande = ""
+
+
+
+
+
 #  VOIR ÉNONCÉ
 def ajouter_smarin():
-    prix = 0
-    choix_sous_marin = chk_smarin.get()
+    
+    veut_sous_marin = chk_smarin.get()
     taille_sous_marin = size_smarin.get()
     sorte_sous_marin = choix_smarin.get()
+    prix = 0.0
+    global ta_commande
+    global prix_total
+    if veut_sous_marin == "1": 
 
-
-    if choix_sous_marin == "1": 
         if taille_sous_marin == "10":
             if sorte_sous_marin == "steak":
-                displayBox.insert("0.0" , "\ntest")
-            elif sorte_sous_marin == "pepperoni":
-                pass
-            elif sorte_sous_marin == "duchef":
-                pass
+                prix = 14.99
+            if sorte_sous_marin == "pepperoni":
+                prix = 14.99
+            if sorte_sous_marin == "duchef":
+                prix = 15.99
+
         else:
             if sorte_sous_marin == "steak":
-                pass
-            elif sorte_sous_marin == "pepperoni":
-                pass
-            elif sorte_sous_marin == "duchef":
-                pass
+                prix = 16.99
+            if sorte_sous_marin == "pepperoni":
+                prix = 16.99
+            if sorte_sous_marin == "duchef":
+                prix = 17.99
 
+        phrase_sous_marin = "\nUn sous-marin "+str(sorte_sous_marin)+" de "+ str(taille_sous_marin) + '" \t:' + str(prix) + "$"
+        ta_commande = ta_commande + phrase_sous_marin
+        prix_total = prix_total + prix
+        
 #  VOIR ÉNONCÉ               
 def ajouter_pizza():
-    pass
+    veut_pizza= chk_pizza.get()
+    taille_pizza = size_pizza.get()
+    sorte_pizza = choix_pizza.get()
+    prix = 0.0
+    global ta_commande
+    global prix_total
+    if veut_pizza == "1": 
+
+        if taille_pizza == "7":
+            if sorte_pizza == "nature":
+                prix = 14.99
+            if sorte_pizza == "végétarienne":
+                prix = 14.99
+            if sorte_pizza == "toute garnie":
+                prix = 16.99
+
+        else:
+            if sorte_pizza == "nature":
+                prix = 16.99
+            if sorte_pizza == "végétarienne":
+                prix = 16.99
+            if sorte_pizza == "toute garnie":
+                prix = 18.99
+
+        phrase_pizza = "\nUne pizza "+str(sorte_pizza)+" de "+ str(taille_pizza) + '" \t:' + str(prix) + "$"
+        ta_commande = ta_commande + phrase_pizza
+        prix_total = prix_total + prix
 
 #  VOIR ÉNONCÉ               
 def ajouter():
+    global ta_commande  
     displayBox.delete(1.0, 'end')
     ajouter_smarin()
     ajouter_pizza()
-    displayBox.insert( "0.0" , "Ta commande : ")
-    displayBox.insert( "0.0" , f"Pour un total de : {prix_total}$")
-     
+    displayBox.insert( "0.0" , f"Ta commande :{ta_commande} \n\n\tPour un total de : " + str(prix_total) + "$")
 
     
 window.rowconfigure((0,1,2,3), weight=1, minsize=150)
